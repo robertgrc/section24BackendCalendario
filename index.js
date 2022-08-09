@@ -7,7 +7,10 @@ const app = express();
 //Directorio Publico
 app.use(express.static("public"));
 
-//rutas
+//Lectura y parseo del body
+app.use(express.json());
+
+//Rutas
 app.use("/api/auth", require("./routes/auth"));
 //Todo: CRUD: Eventos
 
