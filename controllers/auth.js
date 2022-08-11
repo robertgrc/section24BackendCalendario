@@ -39,15 +39,42 @@ const crearUsuario = async (req, res = express.response) => {
   }
 };
 
-const loginUsuario = (req, res = express.response) => {
+const loginUsuario = async (req, res = express.response) => {
   const { email, password } = req.body;
 
-  res.status(201).json({
-    ok: true,
-    msg: "login",
-    email: email,
-    password: password,
-  });
+  try {
+    const usuario = await Usuario.findOne({ email });
+
+    if (!usuario) {
+      return res.status(400).json({
+        ok: false,
+        msg: "Un usuario no existe con ese email",
+      });
+    }
+
+    //Confirmar los Passwords
+    const validPassword = bcrypt.compareSync(password, usuario.password);
+
+    if (!validPassword) {
+      return res.status(400).json({
+        ok: false,
+        msg: "Password incorrecto",
+      });
+    }
+
+    //Generar el Json WebToker  JWT
+    res.json({
+      ok: true,
+      uid: usuario.id,
+      name: usuario.name,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
+  }
 };
 
 const revalidarToken = (req, res = express.response) => {
