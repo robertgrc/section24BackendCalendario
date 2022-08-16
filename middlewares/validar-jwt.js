@@ -2,14 +2,13 @@ const { response } = require("express");
 const jwt = require("jsonwebtoken");
 
 const validarJWT = (req, res = response, next) => {
-  //??como voy a recivir el jsonWT
-  //x=token Headers (donde lo recibiremos)
+  // x-token headers
   const token = req.header("x-token");
 
   if (!token) {
     return res.status(401).json({
       ok: false,
-      msg: "No hay token en la peticion",
+      msg: "No hay token en la petición",
     });
   }
 
@@ -21,7 +20,7 @@ const validarJWT = (req, res = response, next) => {
   } catch (error) {
     return res.status(401).json({
       ok: false,
-      msg: "token no valido",
+      msg: "Token no válido",
     });
   }
 

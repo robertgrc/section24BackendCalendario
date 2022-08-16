@@ -2,7 +2,7 @@ const { response } = require("express");
 const { validationResult } = require("express-validator");
 
 const validarCampos = (req, res = response, next) => {
-  //Manejo de errores
+  // manejo de errores
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({
@@ -10,7 +10,10 @@ const validarCampos = (req, res = response, next) => {
       errors: errors.mapped(),
     });
   }
+
   next();
 };
 
-module.exports = { validarCampos };
+module.exports = {
+  validarCampos,
+};
