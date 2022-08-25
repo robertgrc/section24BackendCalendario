@@ -6,7 +6,7 @@ const { generarJWT } = require("../helpers/jwt");
 // const express = require("express");
 // const { validationResult } = require("express-validator");
 
-const crearUsuario = async (req, res = express.response) => {
+const crearUsuario = async (req, res = response) => {
   const { email, password } = req.body;
 
   try {
@@ -44,7 +44,7 @@ const crearUsuario = async (req, res = express.response) => {
   }
 };
 
-const loginUsuario = async (req, res = express.response) => {
+const loginUsuario = async (req, res = response) => {
   const { email, password } = req.body;
 
   try {
@@ -86,7 +86,7 @@ const loginUsuario = async (req, res = express.response) => {
   }
 };
 
-const revalidarToken = async (req, res = express.response) => {
+const revalidarToken = async (req, res = response) => {
   const uid = req.uid;
   const name = req.name;
 
